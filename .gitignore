@@ -1,0 +1,17 @@
+venv
+.env
+.env.example.ecommerce.api.ai
+.env.example.ecommerce.uat.ai
+.env.example.local
+db.sqlite3
+*.pyc
+debug.log
+/assets
+*/*/*/migrations/*.py
+*/*/migrations/*.py
+!*/*/migrations/__init__.py
+/media/assets
+.idea
+/.vscode
+admin_generator.txt
+/templates/client.html
