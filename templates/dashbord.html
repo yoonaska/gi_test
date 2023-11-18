@@ -295,31 +295,6 @@
 		</div>
 	</div>
 </div>
-
-	
-	<!-- Delete Modal HTML -->
-	<div id="deleteEmployeeModal" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<form>
-					<div class="modal-header">						
-						<h4 class="modal-title">Delete Note</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">					
-						<p>Are you sure you want to delete these Records?</p>
-						<p class="text-warning"><small>This action cannot be undone.</small></p>
-					</div>
-					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-danger" value="Delete">
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-
-
 </body>
 </html>
 
@@ -334,7 +309,7 @@
         const noteDescription = document.getElementById('noteDescription').value;
         const noteId = document.getElementById('noteId').value;
 		
-		const requestBody = (noteId !== null && noteId !== undefined)
+		const requestBody = (noteId !== '' && noteId !== null && noteId !== undefined)
         ? JSON.stringify({
               instance_id: noteId,
               title: noteTitle,
@@ -356,7 +331,7 @@
         .then(data => {
             if (data.status && data.status_code === 201) {
                 // Note added successfully, you can update the UI if needed
-                console.log('Note added successfully');
+                alert('Success');
                 location.reload(); // Refresh the screen
             } else {
                 console.error('Error adding note:', data.errors);
@@ -388,6 +363,7 @@
 	.then(response => response.json())
 	.then(data => {
 		if (data.status && data.status_code === 200) {
+			alert("Success");
 			location.reload()
 		} else {
 			console.error('Error deleting note:', data.errors);
@@ -417,7 +393,7 @@ fetch('http://127.0.0.1:8000/api/home/notes/get-notes-view')
 					<td>${note.description}</td>
 					<td>
 						<a href="#EmployeeModal" class="edit" data-toggle="modal" onclick="editNote(${note.id})"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-						<a href="#deleteEmployeeModal" class="delete" data-toggle="modal" onclick="deleteNote(${note.id})"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+						<a class="delete" data-toggle="modal" onclick="deleteNote(${note.id})"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
 					</td>
 				`;
 				tableBody.appendChild(row);
